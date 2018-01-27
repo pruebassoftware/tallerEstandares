@@ -62,4 +62,18 @@ public class Producto {
         return "Producto{" + "nombre=" + nombre + '}';
     }
 
+    public String getInfo() {
+        return info;
+    }
+
+    public int getLimite() {
+        return limite;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+    
+    
+
 }

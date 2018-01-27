@@ -58,7 +58,7 @@ public class Cliente {
         return null;
     }
     
-    public String getInfo_cliente() {
+    public String getInfoCliente() {
         return "Usted ingreso la siguiente informacion" + "\nNombres:" + names + "\nSector=" + sector;
     }
 

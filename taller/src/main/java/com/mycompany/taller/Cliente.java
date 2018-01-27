@@ -14,8 +14,8 @@ package com.mycompany.taller;
  */
 public class Cliente {
     
-    String names;
-    int sector;
+    private String names;
+    private int sector;
     //Pago pago;
 
     /**
@@ -58,7 +58,7 @@ public class Cliente {
         return null;
     }
     
-    public String getinfo_cliente() {
+    public String getInfoCliente() {
         return "Usted ingreso la siguiente informacion" + "\nNombres:" + names + "\nSector=" + sector;
     }
 

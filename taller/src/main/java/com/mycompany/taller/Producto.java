@@ -18,6 +18,30 @@ public class Producto {
     private double precio;
     private Boolean estado; 
 
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public int getLimite() {
+        return limite;
+    }
+
+    public void setLimite(int limite) {
+        this.limite = limite;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
     public Producto() {}
 
     public Producto(String nombre, String info, int cant, int limite, double precio, boolean estado) {
@@ -36,7 +60,7 @@ public class Producto {
     public String getNombre() {
         return nombre;
     }
-
+    
     public double getPrecio() {
         return precio;
     }

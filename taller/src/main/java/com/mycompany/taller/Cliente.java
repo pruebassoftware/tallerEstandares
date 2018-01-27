@@ -16,19 +16,6 @@ public class Cliente {
     
     private String names;
     private int sector;
-    //Pago pago;
-
-    /**
-     *
-     * @param names
-     * @param sector
-     * @param pago
-     */
-//    public Cliente(String names, int sector, Pago pago) {
-//        this.names = names;
-//        this.sector = sector;
-//        this.pago = pago;
-//    }
 
     public Cliente(String names, int sector) {
         this.names = names;

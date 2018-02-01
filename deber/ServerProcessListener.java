@@ -32,27 +32,18 @@ public class ServerProcessListener implements ISORequestListener{
 
   private String nombreServer = null;
   private Hashtable informacion = null;
-  //private ISOMsg request = null;
-  //private ISOMsg response = null;
+
   private Log log = null;
-
-
-
-  //private MessageMux mux;
-  //private ChannelClient host = null;
-  //private String ipHost = null;
-  //private int puertoHost = 0;
-  //private int toutHost = 0;
 
   private ThreadPool threadPool = null;
 
-  static public int numeroTrx = 0;
-  static public int contaTrx = 0;
-  static public int tiempoEspera = 0;
-  static public boolean activarControl = false;
-  static public boolean flagBloqueo = false;
-  static public boolean flagBaseBloqueo = false;
-  
+  static public int numeroTrx;
+  static public int contaTrx;
+  static public int tiempoEspera;
+  static public boolean activarControl;
+  static public boolean flagBloqueo;
+  static public boolean flagBaseBloqueo;
+
   static public Timer timer = null;
 
   static public  int flagAlarma= 0;
@@ -61,16 +52,16 @@ public class ServerProcessListener implements ISORequestListener{
   static final public  int DESACTIVADA = 2;
 
   private ConnectionPool connPool2005 = null;
-  
+
   //private TransaccionGeneral trx = null;
-  
+
   public ServerProcessListener(String nombreServer,Hashtable informacion){
     this.nombreServer = nombreServer;
     this.informacion = informacion;
     init();
-   
+
     ServerProcessListener.tiempoEspera = (Integer)informacion.get("tiempoEspera");
-    
+
 
      ServerProcessListener.timer = new Timer (ServerProcessListener.tiempoEspera*60000, new ActionListener (){
       public void actionPerformed(ActionEvent e){
@@ -89,13 +80,13 @@ public class ServerProcessListener implements ISORequestListener{
 
     minPool = (Integer)informacion.get("initSessions");
     maxPool = (Integer)informacion.get("maxSessions" );
-    log = org.jpos.util.Log.getLog(Q2.LOGGER_NAME,Q2.REALM);
+    log = Log.getLog(Q2.LOGGER_NAME,Q2.REALM);
     // Pool de Hilos
     threadPool = new ThreadPool(minPool,maxPool,"ThreadEasyCash");
     InitConfig.loadConfig();
-    
+
     connPool2005 = InitConfig.getConnectionPool2005();
-    
+
     informacion.put("connPool2005", connPool2005);
 
   }
@@ -113,7 +104,7 @@ public class ServerProcessListener implements ISORequestListener{
       log.error("Error mti : " + request, ex);
       mti = null;
     }
-    
+
     if( mti != null ){
       if(mti.compareTo("0800") == 0){
         try{
@@ -146,7 +137,7 @@ public class ServerProcessListener implements ISORequestListener{
                 }
               }catch(Exception ex){
                 log.error(request, ex);
-              }  
+              }
         }else{
             if(codigoProceso.compareTo("280000")==0 ||  codigoProceso.compareTo("300000")==0 ){
                 if( request.getString(2).compareTo("827727")==0 ){
@@ -230,7 +221,7 @@ public class ServerProcessListener implements ISORequestListener{
                         }
                 	}catch(Exception ex){
                 		log.error(request, ex);
-                	}  
+                	}
             	}
             }else{
                try{
@@ -263,5 +254,19 @@ public class ServerProcessListener implements ISORequestListener{
       	}
     }
     return true;
+  }
+
+  public String getNombreServer() {
+      return nombreServer;
+  }
+
+  public void setNombreServer(String nombreServer) {
+      this.nombreServer = nombreServer;
+  }
+  public ConnectionPool getConnPool2005() {
+      return connPool2005;
+  }
+  public void setConnPool2005(ConnectionPool connPool2005) {
+      this.connPool2005 = connPool2005;
   }
 }

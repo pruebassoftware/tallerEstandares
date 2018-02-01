@@ -36,7 +36,38 @@ import org.jpos.iso.packager.ISO87BPackager;
 //
 
 public class UiEnviar extends JFrame {
-
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JButton Borrar;
+    private JTextField autorizacionJT;
+    private JTextField cajeroJT;
+    private JTextField claveJT;
+    private JButton enviarJB;
+    private JTextField fechaJT;
+    private JTextField horaJT;
+    private JTextField ipJT;
+    private JLabel jLabel1;
+    private JLabel jLabel10;
+    private JLabel jLabel11;
+    private JLabel jLabel12;
+    private JLabel jLabel13;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
+    private JLabel jLabel5;
+    private JLabel jLabel6;
+    private JLabel jLabel7;
+    private JLabel jLabel8;
+    private JLabel jLabel9;
+    private JScrollPane jScrollPane1;
+    private JTextField midJT;
+    private JTextField montoJT;
+    private JTextField puertoJT;
+    private JTextField referenciaJT;
+    private JButton salirJB;
+    private JTextField simCardJt;
+    private JTextField tidJT;
+    private JTextArea visorJTA;
+    // End of variables declaration//GEN-END:variables
     /**
      * Creates new form UiEnviar
      */
@@ -74,7 +105,7 @@ public class UiEnviar extends JFrame {
             }
             // SIM CARD
             if (simCardJt.getText().compareTo("") != 0) {
-                String tempo = new String();
+                String tempo;
                 tempo = ISOUtil.padright(simCardJt.getText(), 20, ' ');
                 request.set(112, "1202" + tempo);
             } else {
@@ -82,7 +113,7 @@ public class UiEnviar extends JFrame {
             }
             // referencia
             if (referenciaJT.getText().compareTo("") != 0) {
-                String tempo = new String();
+                String tempo;
                 tempo = ISOUtil.padright(referenciaJT.getText(), 6, '0');
                 request.set(11, tempo);
             } else {
@@ -90,13 +121,13 @@ public class UiEnviar extends JFrame {
             }
             // autorizacion
             if (autorizacionJT.getText().compareTo("") != 0) {
-                String tempo = new String();
+                String tempo;
                 tempo = ISOUtil.padright(autorizacionJT.getText(), 6, '0');
                 request.set(38, tempo);
             }
             // Cajero y Clave
             if (cajeroJT.getText().compareTo("") != 0 && claveJT.getText().compareTo("") != 0) {
-                String tempo = new String();
+                String tempo;
                 tempo = cajeroJT.getText() + claveJT.getText();
                 request.set(116, tempo);
             } else {
@@ -139,38 +170,38 @@ public class UiEnviar extends JFrame {
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        visorJTA = new javax.swing.JTextArea();
-        enviarJB = new javax.swing.JButton();
-        salirJB = new javax.swing.JButton();
-        tidJT = new javax.swing.JTextField();
-        midJT = new javax.swing.JTextField();
-        simCardJt = new javax.swing.JTextField();
-        referenciaJT = new javax.swing.JTextField();
-        autorizacionJT = new javax.swing.JTextField();
-        cajeroJT = new javax.swing.JTextField();
-        claveJT = new javax.swing.JTextField();
-        fechaJT = new javax.swing.JTextField();
-        horaJT = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        montoJT = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        ipJT = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        puertoJT = new javax.swing.JTextField();
-        Borrar = new javax.swing.JButton();
+        jLabel11 = new JLabel();
+        jLabel12 = new JLabel();
+        jLabel13 = new JLabel();
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        jLabel3 = new JLabel();
+        jLabel4 = new JLabel();
+        jLabel5 = new JLabel();
+        jLabel6 = new JLabel();
+        jLabel7 = new JLabel();
+        jLabel8 = new JLabel();
+        jLabel9 = new JLabel();
+        jLabel10 = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        visorJTA = new JTextArea();
+        enviarJB = new JButton();
+        salirJB = new JButton();
+        tidJT = new JTextField();
+        midJT = new JTextField();
+        simCardJt = new JTextField();
+        referenciaJT = new JTextField();
+        autorizacionJT = new JTextField();
+        cajeroJT = new JTextField();
+        claveJT = new JTextField();
+        fechaJT = new JTextField();
+        horaJT = new JTextField();
+        montoJT = new JTextField();
+        ipJT = new JTextField();
+        puertoJT = new JTextField();
+        Borrar = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("COMERCIO ID");
 
@@ -375,7 +406,6 @@ public class UiEnviar extends JFrame {
         requestMsg = obtenerMensajeISO();
 
         ip = ipJT.getText();
-
         puerto = Integer.parseInt(puertoJT.getText());
 
         if (requestMsg != null) {
@@ -384,9 +414,6 @@ public class UiEnviar extends JFrame {
             // tpdu,NACChannel.PACKAGER1);
             channel = new NACChannel(ip, puerto, new ISO87BPackager(), tpdu);
             try {
-                DataOutputStream dos = null;
-                BufferedWriter d;
-
                 channel.setTimeout(15000);
                 channel.connect();
                 visorJTA.append("CONECTADO A " + ip + ": " + puerto + "\n");
@@ -407,9 +434,7 @@ public class UiEnviar extends JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(UiEnviar.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
-
     }// GEN-LAST:event_enviarJBActionPerformed
 
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_BorrarActionPerformed
@@ -478,37 +503,4 @@ public class UiEnviar extends JFrame {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton Borrar;
-    private JTextField autorizacionJT;
-    private JTextField cajeroJT;
-    private JTextField claveJT;
-    private JButton enviarJB;
-    private JTextField fechaJT;
-    private JTextField horaJT;
-    private JTextField ipJT;
-    private JLabel jLabel1;
-    private JLabel jLabel10;
-    private JLabel jLabel11;
-    private JLabel jLabel12;
-    private JLabel jLabel13;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
-    private JLabel jLabel5;
-    private JLabel jLabel6;
-    private JLabel jLabel7;
-    private JLabel jLabel8;
-    private JLabel jLabel9;
-    private JScrollPane jScrollPane1;
-    private JTextField midJT;
-    private JTextField montoJT;
-    private JTextField puertoJT;
-    private JTextField referenciaJT;
-    private JButton salirJB;
-    private JTextField simCardJt;
-    private JTextField tidJT;
-    private JTextArea visorJTA;
-    // End of variables declaration//GEN-END:variables
 }

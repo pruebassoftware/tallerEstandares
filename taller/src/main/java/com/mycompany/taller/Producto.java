@@ -17,6 +17,8 @@ public class Producto {
     private int limite; 
     private double precio;
     private Boolean estado; 
+    
+    
 
     public Producto() {}
 
@@ -28,6 +30,28 @@ public class Producto {
         this.precio = precio;
         this.estado = true;
     }
+    
+    public String getInfo() {
+		return info;
+	}
+	public void setInfo(String info) {
+		this.info = info;
+	}
+	
+	public int getLimite() {
+		return limite;
+	}
+	public void setLimite(int limite) {
+		this.limite = limite;
+	}
+	
+	public Boolean getEstado() {
+		return estado;
+	}
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
+	} 
+    
 
     public int getCant() {
         return cant;
@@ -61,5 +85,7 @@ public class Producto {
     public String toString() {
         return "Producto{" + "nombre=" + nombre + '}';
     }
+    
+    
 
 }

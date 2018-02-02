@@ -11,16 +11,16 @@ package com.mycompany.taller;
  */
 public class Producto {
 
-    String nombre;
-    String info; 
-    int cant; 
-    int limite; 
-    double precio;
-    Boolean estado; 
+    private String nombre;
+    private String info; 
+    private int cant; 
+    private int limite; 
+    private double precio;
+    private Boolean estado; 
 
     public Producto() {}
 
-    public Producto(String nombre, String info, int cant, int limite, double precio, boolean estado) {
+    public Producto(String nombre, String info, int cant, int limite, double precio) {
         this.nombre = nombre;
         this.info = info;
         this.cant = cant;
@@ -41,15 +41,15 @@ public class Producto {
         return precio;
     }
  
-    public int validar_cant() {
+    public int validarCant() {
         if (this.getCant() == 0 || this.getCant() < 0 || this.getCant() > 100) {
             return 0;
         }
         return 1;
     }
 
-    public String crear_producto() {
-        if (this.validar_cant() == 1) {
+    public String crearProducto() {
+        if (this.validarCant() == 1) {
             System.out.println("Usted ha creado:" + this.toString());
 
             return "Se creo el producto exitosamente!";

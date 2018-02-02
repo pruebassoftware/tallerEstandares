@@ -52,7 +52,7 @@ import com.westermunion.ws.desarrollo.ClsReverseResponse;
 import com.westermunion.ws.desarrollo.Servicios;
 import com.westermunion.ws.desarrollo.ServiciosSoap;
 
-public class transaccionalWU implements Runnable{
+public class TransaccionalWU implements Runnable{
 	
  	@SuppressWarnings("rawtypes")
 	private Hashtable 	informacion 		= null;
@@ -73,19 +73,21 @@ public class transaccionalWU implements Runnable{
     private Connection conn2005 			= null;
     private long tiempoMaximoTrx 			= 80000;
     private final int DB_2005 				= 1;
-    String Empresa 							= "";
-    String codEmpresaWU						= "";
-    String separador						= ";";
-    String transDeclinada					= "21";
-    String timeOut							= "09";
-    String errorJava						= "96";
-    String errorBase						= "28";
-    String errorTransaccion					= "27";
-    String aprobado							= "00";
-    String datosAdicionales					= "";
+    private String Empresa 							= "";
+    private String codEmpresaWU						= "";
+    private String separador						= ";";
+    private String transDeclinada					= "21";
+    @SuppressWarnings("unused")
+	private String timeOut							= "09";
+    @SuppressWarnings("unused")
+	private String errorJava						= "96";
+    private String errorBase						= "28";
+    private String errorTransaccion					= "27";
+    private String aprobado							= "00";
+    private String datosAdicionales					= "";
     int numeroMaxDato						= 999;
 		
-	public transaccionalWU(@SuppressWarnings("rawtypes") Hashtable informacion,ISOSource server,ISOMsg request, TransaccionGeneral trx, String westerm_empresa, String codigoEmpresa){
+	public TransaccionalWU(@SuppressWarnings("rawtypes") Hashtable informacion,ISOSource server,ISOMsg request, TransaccionGeneral trx, String westerm_empresa, String codigoEmpresa){
         this.informacion 		= informacion;
         this.server 			= server;
         this.request 			= request;
@@ -93,8 +95,8 @@ public class transaccionalWU implements Runnable{
         this.trx 				= trx;
         this.Empresa			= westerm_empresa;
         this.codEmpresaWU		= codigoEmpresa;
-        log 					= org.jpos.util.Log.getLog(Q2.LOGGER_NAME,Q2.REALM);
-        log_tout 				= org.jpos.util.Log.getLog("Q21_TOUT",Q2.REALM);
+        log 					= Log.getLog(Q2.LOGGER_NAME,Q2.REALM);
+        log_tout 				= Log.getLog("Q21_TOUT",Q2.REALM);
         
         ServerProcessListener.numeroTrx 		= (Integer)informacion.get("numeroTrx");
         ServerProcessListener.tiempoEspera 		= (Integer)informacion.get("tiempoEspera");
@@ -121,7 +123,7 @@ public class transaccionalWU implements Runnable{
       	    }
 			
 			if(tempCampo117 !=""){
-	      	    JSONArray datosCampo117 = (JSONArray)SeparaDatosCampo117(tempCampo117, "CON");
+	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, "CON");
 	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
 	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
 	  		  		if(!dato117.getString("referenciaAd").isEmpty()){
@@ -130,47 +132,47 @@ public class transaccionalWU implements Runnable{
 	  		  	}
       	    }
 			
-			if(datoProvinciaCNEL.equals("101")){
+			if("101".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="009"; 
 				this.Empresa = "WESTERN_CNEL_GUAYASRIOS";
 			}
-			if(datoProvinciaCNEL.equals("102")){
+			if("102".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="061"; 
 				this.Empresa = "WESTERN_CNEL_LOSRIOS";
 			}
-			if(datoProvinciaCNEL.equals("103")){
+			if("103".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="111"; 
 				this.Empresa = "WESTERN_CNEL_GUAYAQUIL";
 			}
-			if(datoProvinciaCNEL.equals("501")){
+			if( "501".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="010"; 
 				this.Empresa = "WESTERN_CNEL_ELORO";
 			}
-			if(datoProvinciaCNEL.equals("201")){
+			if( "201".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="025"; 
 				this.Empresa = "WESTERN_CNEL_ESMERALDAS";
 			}
-			if(datoProvinciaCNEL.equals("301")){
+			if( "301".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="011"; 
 				this.Empresa = "WESTERN_CNEL_SANTAELENA";
 			}
-			if(datoProvinciaCNEL.equals("401")){
+			if( "401".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="051"; 
 				this.Empresa = "WESTERN_CNEL_MANABI";
 			}
-			if(datoProvinciaCNEL.equals("601")){
+			if( "601".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="007"; 
 				this.Empresa = "WESTERN_CNEL_MILAGRO";
 			}
-			if(datoProvinciaCNEL.equals("701")){
+			if( "701".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="115"; 
 				this.Empresa = "WESTERN_CNEL_SUCUMBIOS";
 			}
-			if(datoProvinciaCNEL.equals("801")){
+			if( "801".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="129"; 
 				this.Empresa = "WESTERN_CNEL_BOLIVAR";
 			}
-			if(datoProvinciaCNEL.equals("901")){
+			if( "901".equals(datoProvinciaCNEL)){
 				this.codEmpresaWU="026"; 
 				this.Empresa = "WESTERN_CNEL_STODOMINGO";
 			}
@@ -294,24 +296,24 @@ public class transaccionalWU implements Runnable{
     		//AGUAPEN //AZZORTI //BELCORP //CLARO - DTH //CLARO - SERVICIOS FIJOS //DIRECTV
     		//ETAFASHION PLANETA //HERBALIFE //JARDINES DE ESPERANZA //LEUDINE //NETLIFE
     		//ORIFLAME //REBAJA MODA //TV CABLE //UNIVISA //CENTRO SUR (BP) //IECE // AVON
-    		if(codigoInstitucion == "035" || codigoInstitucion == "065" ||		
-    		   codigoInstitucion == "014" || codigoInstitucion == "084" ||
-    		   codigoInstitucion == "018" || codigoInstitucion == "006" ||
-    		   codigoInstitucion == "032" || codigoInstitucion == "118" ||
-    		   codigoInstitucion == "049" || codigoInstitucion == "079" ||
-    		   codigoInstitucion == "060" || codigoInstitucion == "016" ||
-    		   codigoInstitucion == "130" || codigoInstitucion == "063" ||
-    		   codigoInstitucion == "021" || codigoInstitucion == "099" ||  
-    		   codigoInstitucion == "112" || codigoInstitucion == "003" ||
-    		   codigoInstitucion == "CNL" ){
+    		if( "035".equals(codigoInstitucion) ||  "065".equals(codigoInstitucion) ||		
+    		    "014".equals(codigoInstitucion) ||  "084".equals(codigoInstitucion) ||
+    		    "018".equals(codigoInstitucion) ||  "006".equals(codigoInstitucion) ||
+    		    "032".equals(codigoInstitucion) ||  "118".equals(codigoInstitucion) ||
+    		    "049".equals(codigoInstitucion) ||  "079".equals(codigoInstitucion) ||
+    		    "060".equals(codigoInstitucion) ||  "016".equals(codigoInstitucion) ||
+    		    "130".equals(codigoInstitucion) ||  "063".equals(codigoInstitucion) ||
+    		    "021".equals(codigoInstitucion) ||  "099".equals(codigoInstitucion) ||  
+    		    "112".equals(codigoInstitucion) ||  "003".equals(codigoInstitucion) ||
+    		    "CNL".equals(codigoInstitucion) ){
     			
     			datosConsulta.setCarCuenta(contrapartida);
     			
-    		}else if(codigoInstitucion == "087"){//DOCUMENTO Y NOMBRE
+    		}else if("087".equals(codigoInstitucion)){//DOCUMENTO Y NOMBRE
     			//LEONISA
     			datosConsulta.setCarDocumentId(contrapartida);
         		if(tempCampo117 !=""){
-    	      	    JSONArray datosCampo117 = (JSONArray)SeparaDatosCampo117(tempCampo117, tipoProceso);
+    	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
     	  		  		if(!dato117.getString("nombreContraPartida").isEmpty()){
@@ -319,11 +321,11 @@ public class transaccionalWU implements Runnable{
     	  		  		}
     	  		  	}
           	    }
-    		}else if(codigoInstitucion == "040"){//DOCUMENTO, NOMBRES Y CUENTA
+    		}else if("040".equals(codigoInstitucion)){//DOCUMENTO, NOMBRES Y CUENTA
     			//ARTEFACTA
     			datosConsulta.setCarDocumentId(contrapartida);
         		if(tempCampo117 !=""){
-    	      		JSONArray datosCampo117 = (JSONArray)SeparaDatosCampo117(tempCampo117, tipoProceso);
+    	      		JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
     	  		  		if(!dato117.getString("nombreContraPartida").isEmpty()){
@@ -334,10 +336,10 @@ public class transaccionalWU implements Runnable{
 		  			  	}
     	  		  	}
     	  	    }
-    		}else if(codigoInstitucion == "040"){//CUENTA Y NOMBRES
+    		}else if("000".equals(codigoInstitucion)){//CUENTA Y NOMBRES
     			datosConsulta.setCarCuenta(contrapartida);
         		if(tempCampo117 !=""){
-    	      	    JSONArray datosCampo117 = (JSONArray)SeparaDatosCampo117(tempCampo117, tipoProceso);
+    	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
     	  		  		if(!dato117.getString("nombreContraPartida").isEmpty()){
@@ -345,8 +347,6 @@ public class transaccionalWU implements Runnable{
     	  		  		}
     	  		  	}
           	    }
-    		}else{
-    			
     		}
     	}catch(Exception ex){
             log.error(this, ex);
@@ -393,19 +393,19 @@ public class transaccionalWU implements Runnable{
     		//AGUAPEN //AZZORTI //BELCORP //CLARO - DTH //CLARO - SERVICIOS FIJOS //DIRECTV
     		//ETAFASHION PLANETA //HERBALIFE //JARDINES DE ESPERANZA //LEUDINE //NETLIFE
     		//ORIFLAME //REBAJA MODA //TV CABLE //UNIVISA //CENTRO SUR (BP) //IECE
-    		if(codigoInstitucion == "035" || codigoInstitucion == "065" ||		
-    		   codigoInstitucion == "014" || codigoInstitucion == "084" ||
-    		   codigoInstitucion == "018" || codigoInstitucion == "006" ||
-    		   codigoInstitucion == "032" || codigoInstitucion == "118" ||
-    		   codigoInstitucion == "049" || codigoInstitucion == "079" ||
-    		   codigoInstitucion == "060" || codigoInstitucion == "016" ||
-    		   codigoInstitucion == "130" || codigoInstitucion == "063" ||
-    		   codigoInstitucion == "021" || codigoInstitucion == "099" ||  
-    		   codigoInstitucion == "112" || codigoInstitucion == "003" ){
+    		if( "035".equals(codigoInstitucion) ||  "065".equals(codigoInstitucion) ||		
+    		    "014".equals(codigoInstitucion) ||  "084".equals(codigoInstitucion) ||
+    		    "018".equals(codigoInstitucion) ||  "006".equals(codigoInstitucion) ||
+    		    "032".equals(codigoInstitucion) ||  "118".equals(codigoInstitucion) ||
+    		    "049".equals(codigoInstitucion) ||  "079".equals(codigoInstitucion) ||
+    		    "060".equals(codigoInstitucion) ||  "016".equals(codigoInstitucion) ||
+    		    "130".equals(codigoInstitucion) ||  "063".equals(codigoInstitucion) ||
+    		    "021".equals(codigoInstitucion) ||  "099".equals(codigoInstitucion) ||  
+    		    "112".equals(codigoInstitucion) ||  "003".equals(codigoInstitucion) ){
     			
     			datosPago.setCarCuenta(contrapartida);
     			
-    		}else if(codigoInstitucion == "087"){//DOCUMENTO Y NOMBRE
+    		}else if( "087".equals(codigoInstitucion)){//DOCUMENTO Y NOMBRE
     			//LEONISA
     			if(contrapartida.length()>10){
     				tipoDocumento = "R";
@@ -413,7 +413,7 @@ public class transaccionalWU implements Runnable{
     			datosPago.setCarTypeDocument(tipoDocumento);
     			datosPago.setCarDocumentId(contrapartida);
     			if(tempCampo117 !=""){
-    	      	    JSONArray datosCampo117 = (JSONArray)SeparaDatosCampo117(tempCampo117, tipoProceso);
+    	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
     	  		  		if(!dato117.getString("nombreContraPartida").isEmpty()){
@@ -421,7 +421,7 @@ public class transaccionalWU implements Runnable{
     	  		  		}
     	  		  	}
           	    }
-    		}else if(codigoInstitucion == "040"){//DOCUMENTO, NOMBRES Y CUENTA
+    		}else if( "040".equals(codigoInstitucion)){//DOCUMENTO, NOMBRES Y CUENTA
     			//ARTEFACTA
     			if(contrapartida.length()>10){
     				tipoDocumento = "R";
@@ -429,7 +429,7 @@ public class transaccionalWU implements Runnable{
     			datosPago.setCarTypeDocument(tipoDocumento);
     			datosPago.setCarDocumentId(contrapartida);
         		if(tempCampo117 !=""){
-    	      		JSONArray datosCampo117 = (JSONArray)SeparaDatosCampo117(tempCampo117, tipoProceso);
+    	      		JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
     	  		  		if(!dato117.getString("nombreContraPartida").isEmpty()){
@@ -440,10 +440,10 @@ public class transaccionalWU implements Runnable{
 		  			  	}
     	  		  	}
     	  	    }
-    		}else if(codigoInstitucion == "040"){//CUENTA Y NOMBRES
+    		}else if( "000".equals(codigoInstitucion)){//CUENTA Y NOMBRES
     			datosPago.setCarCuenta(contrapartida);
         		if(tempCampo117 !=""){
-    	      	    JSONArray datosCampo117 = (JSONArray)SeparaDatosCampo117(tempCampo117, tipoProceso);
+    	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
     	  		  		if(!dato117.getString("nombreContraPartida").isEmpty()){
@@ -451,8 +451,6 @@ public class transaccionalWU implements Runnable{
     	  		  		}
     	  		  	}
           	    }
-    		}else{
-    			
     		}
       	   
       	    double montoPagar 	= 0;
@@ -506,7 +504,7 @@ public class transaccionalWU implements Runnable{
 	      	    if(tempCampo117.contains(separador)){
 	      	    	tempCampo117 = tempCampo117.substring(tempCampo117.indexOf(separador)+1);
 	      	    }
-	    		JSONArray datosCampo117 = (JSONArray)SeparaDatosCampo117(tempCampo117, tipoProceso);
+	    		JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
 	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
 	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
 	  		  		if(!dato117.getString("numeroId_Cl").isEmpty()){
@@ -795,7 +793,7 @@ public class transaccionalWU implements Runnable{
     	return datosResponseWesterUnionDTO;
     }
     
-    public JSONArray SeparaDatosCampo117(String temporal117, String proceso)throws Exception{
+    public JSONArray separaDatosCampo117(String temporal117, String proceso)throws Exception{
  	   JSONArray datosCampo117 = new JSONArray();
  	   try{
  		   if(proceso.equals("CON")){
@@ -1074,7 +1072,7 @@ public class transaccionalWU implements Runnable{
     		//-------------------------------------------------------------------------------------
     		//--------------------------DETALLE RECIBO---------------------------------------------
     		String datoDetalle = "";
-    		if(this.codEmpresaWU=="0000"){//JUDICATURA
+    		if("0000".equals(this.codEmpresaWU)){//JUDICATURA
 	    		if(recibo.getDetalle().getEspacio1()!=null){
 	    			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getEspacio1().toString();
 	    		}else{
@@ -1087,7 +1085,7 @@ public class transaccionalWU implements Runnable{
     		if(recibo.getDetalle().getRecaudacion()!=null){
     			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getRecaudacion().toString();
     		}
-    		if(this.codEmpresaWU=="0000"){//SRI
+    		if( "0000".equals(this.codEmpresaWU)){//SRI
     			if(recibo.getDetalle().getAutSri()!=null && recibo.getDetalle().getComprobante().contains("RISE")){
         			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getAutSri().toString();
         		}
@@ -1095,7 +1093,7 @@ public class transaccionalWU implements Runnable{
         			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getAutsri().toString();
         		}
     		}
-    		if(this.codEmpresaWU=="0000"){//JUDICATURA
+    		if( "0000".equals(this.codEmpresaWU)){//JUDICATURA
 	    		if(recibo.getDetalle().getEspacio2()!=null){
 	    			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getEspacio2().toString();
 	    		}else{
@@ -1103,7 +1101,7 @@ public class transaccionalWU implements Runnable{
 	    		}
     		}
     		//----------------VALIDAR ANT-  --------------------------------
-    		if(recibo.getDetalle().getIdentificacion()!=null && this.codEmpresaWU=="0000"){
+    		if(recibo.getDetalle().getIdentificacion()!=null && "0000".equals(this.codEmpresaWU)){
     			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getIdentificacion().toString();
     		}
     		//------------------------------------------------------------
@@ -1119,13 +1117,13 @@ public class transaccionalWU implements Runnable{
     		if(recibo.getDetalle().getTipoIdentificacion()!=null){
     			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getTipoIdentificacion().toString();
     		}
-    		if(recibo.getDetalle().getIdentificacion()!=null && this.codEmpresaWU!="0000"){
+    		if(recibo.getDetalle().getIdentificacion()!=null && !("0000".equals(this.codEmpresaWU))){
     			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getIdentificacion().toString();
     		}
     		if(recibo.getDetalle().getCodigo()!=null){
     			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getCodigo().toString();
     		}
-    		if(this.codEmpresaWU=="0000"){//JUDICATURA
+    		if("0000".equals(this.codEmpresaWU)){//JUDICATURA
 	    		if(recibo.getDetalle().getEspacio3()!=null ){
 	    			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getEspacio3().toString();
 	    		}else{
@@ -1171,7 +1169,7 @@ public class transaccionalWU implements Runnable{
     		if(recibo.getDetalle().getImpuesto()!=null){
     			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getImpuesto().toString();
     		}
-    		if(this.codEmpresaWU!="0000"){//SRI
+    		if(!("0000".equals(this.codEmpresaWU))){//SRI
 	    		if(recibo.getDetalle().getAutSri()!=null){
 	    			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getAutSri().toString();
 	    		}
@@ -1220,7 +1218,7 @@ public class transaccionalWU implements Runnable{
     			datoDetalle = datoDetalle+"|"+recibo.getDetalle().getBrigada().toString();
     		}
     		datoDetalle = datoDetalle+" | ";
-    		if(recibo.getDetalle().getRecaudacion().contains("DOMINIO") && this.codEmpresaWU!="0000"){//SRI TRANSFERENCIA DE DOMINIO
+    		if(recibo.getDetalle().getRecaudacion().contains("DOMINIO") && !("0000".equals(this.codEmpresaWU))){//SRI TRANSFERENCIA DE DOMINIO
     			
     			datoRecibo = datoRecibo + armaDetalleReciboSRITransaferencia(recibo.getDetalle());;
     		}else{

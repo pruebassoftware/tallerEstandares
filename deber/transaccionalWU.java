@@ -796,7 +796,7 @@ public class TransaccionalWU implements Runnable{
     public JSONArray separaDatosCampo117(String temporal117, String proceso)throws Exception{
  	   JSONArray datosCampo117 = new JSONArray();
  	   try{
- 		   if(proceso.equals("CON")){
+ 		   if("CON".equals(proceso)){
  			  //CONSULTA
  			   if(temporal117.length()>0){
  				   JSONObject dato = new JSONObject();
@@ -1332,7 +1332,7 @@ public class TransaccionalWU implements Runnable{
     	            
     	            if(cone != null){
     	            	//METODO DE HOMOLOGACION DE CODIGOS EMPRESA CNEL
-    	            	if(this.codEmpresaWU == "CNL"){
+    	            	if("CNL".equals(this.codEmpresaWU)){
     	            		homologaCodigoCNEL();
     	            	}
     	            	informacionRegistroBaseDTO = (InformacionRegistroBaseDTO)guardaDatosInicial(conn2005,request,"","",""); 

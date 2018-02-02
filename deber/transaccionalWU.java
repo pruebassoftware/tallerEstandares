@@ -122,7 +122,7 @@ public class TransaccionalWU implements Runnable{
       	    	tempCampo117 = "";
       	    }
 			
-			if(tempCampo117 !=""){
+			if(!("".equals(tempCampo117))){
 	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, "CON");
 	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
 	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
@@ -312,7 +312,7 @@ public class TransaccionalWU implements Runnable{
     		}else if("087".equals(codigoInstitucion)){//DOCUMENTO Y NOMBRE
     			//LEONISA
     			datosConsulta.setCarDocumentId(contrapartida);
-        		if(tempCampo117 !=""){
+        		if(!("".equals(tempCampo117))){
     	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
@@ -324,7 +324,7 @@ public class TransaccionalWU implements Runnable{
     		}else if("040".equals(codigoInstitucion)){//DOCUMENTO, NOMBRES Y CUENTA
     			//ARTEFACTA
     			datosConsulta.setCarDocumentId(contrapartida);
-        		if(tempCampo117 !=""){
+        		if(!("".equals(tempCampo117))){
     	      		JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
@@ -338,7 +338,7 @@ public class TransaccionalWU implements Runnable{
     	  	    }
     		}else if("000".equals(codigoInstitucion)){//CUENTA Y NOMBRES
     			datosConsulta.setCarCuenta(contrapartida);
-        		if(tempCampo117 !=""){
+        		if(!("".equals(tempCampo117))){
     	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
@@ -412,7 +412,7 @@ public class TransaccionalWU implements Runnable{
     			}
     			datosPago.setCarTypeDocument(tipoDocumento);
     			datosPago.setCarDocumentId(contrapartida);
-    			if(tempCampo117 !=""){
+    			if(!("".equals(tempCampo117))){
     	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
@@ -428,7 +428,7 @@ public class TransaccionalWU implements Runnable{
     			}
     			datosPago.setCarTypeDocument(tipoDocumento);
     			datosPago.setCarDocumentId(contrapartida);
-        		if(tempCampo117 !=""){
+        		if(!("".equals(tempCampo117))){
     	      		JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
@@ -442,7 +442,7 @@ public class TransaccionalWU implements Runnable{
     	  	    }
     		}else if( "000".equals(codigoInstitucion)){//CUENTA Y NOMBRES
     			datosPago.setCarCuenta(contrapartida);
-        		if(tempCampo117 !=""){
+        		if(!("".equals(tempCampo117))){
     	      	    JSONArray datosCampo117 = (JSONArray)separaDatosCampo117(tempCampo117, tipoProceso);
     	  		  	for (int i = 0; i < datosCampo117.length(); i++) {
     	  		  		JSONObject dato117 = datosCampo117.getJSONObject(i);
@@ -500,7 +500,7 @@ public class TransaccionalWU implements Runnable{
       	    }else{
       	    	tempCampo117 = "";
       	    }
-      	    if(tempCampo117 !=""){
+      	    if(!("".equals(tempCampo117))){
 	      	    if(tempCampo117.contains(separador)){
 	      	    	tempCampo117 = tempCampo117.substring(tempCampo117.indexOf(separador)+1);
 	      	    }
@@ -1219,8 +1219,10 @@ public class TransaccionalWU implements Runnable{
     		}
     		datoDetalle = datoDetalle+" | ";
     		if(recibo.getDetalle().getRecaudacion().contains("DOMINIO") && !("0000".equals(this.codEmpresaWU))){//SRI TRANSFERENCIA DE DOMINIO
-    			
-    			datoRecibo = datoRecibo + armaDetalleReciboSRITransaferencia(recibo.getDetalle());;
+    			String datosDetalleSRI = armaDetalleReciboSRITransaferencia(recibo.getDetalle());
+    			if(!datosDetalleSRI.isEmpty()){
+    				datoRecibo = datoRecibo + datosDetalleSRI;
+    			}
     		}else{
     			datoRecibo = datoRecibo + datoDetalle;
     		}

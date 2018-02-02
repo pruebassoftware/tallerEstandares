@@ -67,8 +67,6 @@ public class ServerProcessListener implements ISORequestListener{
       public void actionPerformed(ActionEvent e){
         log.warn("Host Desbloqueado ", new Date());
         ServerProcessListener.timer.stop();
-        ServerProcessListener.contaTrx = 0;
-        ServerProcessListener.flagBloqueo = false;
       }
     });
 

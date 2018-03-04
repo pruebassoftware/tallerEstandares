@@ -14,8 +14,8 @@ package com.mycompany.taller;
  */
 public class Cliente {
     
-    String name;
-    int sector;
+    private String name;
+    private int sector;
     //Pago pago;
 
     /**

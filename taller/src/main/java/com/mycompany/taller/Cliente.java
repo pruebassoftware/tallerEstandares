@@ -24,12 +24,6 @@ public class Cliente {
      * @param sector
      * @param pago
      */
-//    public Cliente(String names, int sector, Pago pago) {
-//        this.names = names;
-//        this.sector = sector;
-//        this.pago = pago;
-//    }
-
     public Cliente(String name, int sector) {
         this.name = name;
         this.sector = sector;

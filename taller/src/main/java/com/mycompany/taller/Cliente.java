@@ -14,24 +14,18 @@ package com.mycompany.taller;
  */
 public class Cliente {
     
-    String names;
-    int sector;
+    private String name;
+    private int sector;
     //Pago pago;
 
     /**
      *
-     * @param names
+     * @param name
      * @param sector
      * @param pago
      */
-//    public Cliente(String names, int sector, Pago pago) {
-//        this.names = names;
-//        this.sector = sector;
-//        this.pago = pago;
-//    }
-
-    public Cliente(String names, int sector) {
-        this.names = names;
+    public Cliente(String name, int sector) {
+        this.name = name;
         this.sector = sector;
         //this.pago = pago;
     }
@@ -41,7 +35,7 @@ public class Cliente {
      * @return names
      */
     public String getNombres() {
-        return names;
+        return name;
     }
  
     public String getSector() {
@@ -58,8 +52,8 @@ public class Cliente {
         return null;
     }
     
-    public String getinfo_cliente() {
-        return "Usted ingreso la siguiente informacion" + "\nNombres:" + names + "\nSector=" + sector;
+    public String getInfoCliente() {
+        return "Usted ingreso la siguiente informacion" + "\nNombres:" + name + "\nSector=" + sector;
     }
 
     @Override
